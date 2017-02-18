@@ -1,0 +1,62 @@
+doctype html
+html
+  head
+
+    // meta data
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no")
+    meta(name="description" content="")
+
+    // for routing - leave as is
+    base(href="/")
+
+    // title
+    if enviroment=="development"
+      title #{title} (#{enviroment})
+    if enviroment!="development"
+      title #{title}
+
+    // css
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet' href='node_modules/semantic-ui/dist/semantic.min.css')
+
+    // jquery/semantic-ui
+    script(src='node_modules/jquery/dist/jquery.min.js')
+    script(src='node_modules/semantic-ui/dist/semantic.min.js')
+
+    // production
+    if enviroment=="production"
+      script(src='node_modules/vue/dist/vue.min.js')
+
+    // development
+    if enviroment=="development"
+      script(src='node_modules/vue/dist/vue.js')
+      script(src='//localhost:35729/livereload.js')
+
+  body
+
+    // site renders here
+    #my-app
+      my-component
+
+  // controllers
+  script(src='components/home/controller.js').
+
+  // initiate vue
+  script(type='text/javascript').
+    new Vue({
+      el: '#my-app'
+    })
+
+
+
+  script(type='text/javascript').
+    _root = {
+      globals: {
+        enviroment: "#{enviroment}",
+        isMobile: "#{isMobile}",
+        isIphone: "#{isIphone}",
+        isIpad: "#{isIpad}",
+        isAndroid: "#{isAndroid}",
+        userAgent: "#{userAgent}"
+      }
+    }
