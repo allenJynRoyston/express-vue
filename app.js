@@ -1,132 +1,96 @@
-// express setup
-var express = require('express'),
-    path = require('path');
+//------------------------------------
+// EXPRESS/NPM PACKETS
+var path = require('path'),
+    request = require('request'),
+    compression = require('compression'),
+    express = require('express'),
+    expressVue = require('express-vue'),  // this plugin is in active development - make sure to check up on it later
+    app = express(),
+    port = 3000;
 
-// npm modules
-var favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    os = require('os'),
-    compression = require('compression');
+    // include these to insure that they don't conflict in your vue components
+    global.$ = function(){return{}};
+    global.window = function(){return{}};
+    global.document = function(){return{}};
+//------------------------------------
 
-// routes
-var site = require('./routes/index'),
-		api = require('./routes/api'),
+//------------------------------------
+// ROUTES
+var site = require('./routes/site'),
     router = express.Router();
+//------------------------------------
 
-// app
-var app = express();
-
-// view engine setup
-app.set('view engine', 'pug');
-
-// uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(compression());                                                         // https://www.npmjs.com/package/compression
-app.use(require('prerender-node'));                                             // https://prerender.io/
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// pathing
+//------------------------------------
+// SETUP
+app.engine('vue', expressVue);
+app.set('view engine', 'vue');
+app.set('views', path.join(__dirname, '/_render/views/'));
+app.set('vue', {
+    componentsDir: path.join(__dirname, '/_render/components/'),
+    defaultLayout: 'index'    //index file will always be rendered first
+});
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-app.use('/components',  express.static(__dirname + '/components'));
+app.use('/assets',  express.static(__dirname + '/assets'));
+app.use(compression())
+//------------------------------------
 
-
-// route middleware that will happen on every request
+//------------------------------------
+// MIDDLEWARE (happens on every request)
 router.use(function(req, res, next) {
 
-  //-------------------
-  if(req.headers.host == 'localhost:3000'){
-    req.enviroment = "development";
-  }else{
-    req.enviroment = "production";
-  }
-  //-------------------
-
-	//------------------- user detection
+	//-------------------
+  /* GET USER DEVICE INFORMATION */
   var ua = req.header('user-agent');
-
-	// detect mobile
-	if(/mobile/i.test(ua)) {
-			isMobile = true;
-	} else {
-			isMobile = false;
-	}
-
-	// detect iPhone
-	if(/iPhone/i.test(ua)) {
-			isIphone = true;
-	} else {
-			isIphone = false;
-	}
-
-	// detect iPhone
-	if(/iPad/i.test(ua)) {
-			isIpad = true;
-	} else {
-			isIpad = false;
-	}
-
-	// detect Android
-	if(/Android/i.test(ua)) {
-			isAndroid = true;
-	} else {
-			isAndroid = false;
-	}
-	//-------------------
-
-	//-------------------
-  var device = {
-		enviroment: req.enviroment,
-		isMobile: isMobile,
-		isIphone: isIphone,
-		isIpad: isIpad,
-		isAndroid: isAndroid,
+  req.device = {
+		enviroment: req.headers.host == 'localhost:' + port ? "development" : "production",
+		isMobile: /mobile/i.test(ua) ? true : false,
+		isIphone: /iPhone/i.test(ua) ? true : false,
+		isIpad: /iPad/i.test(ua) ? true : false,
+		isAndroid: /Android/i.test(ua) ? true : false,
 		userAgent: ua
 	};
-	//-------------------
+  //-------------------
 
-	req.device = device;
+  //------------------
+  /* INCLUDE SCRIPTS/STYLES HERE */
+  req.meta = {
+      title: 'Vue/Express/Sematic Boilerplate',
+      head: [
+          // META TAGS
+          { charset: 'UTF-8' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+          // SCRIPTS
+          { script: req.device.enviroment == "development" ? '/node_modules/vue/dist/vue.js' : '/node_modules/vue/dist/vue.min.js'},
+          { script: req.device.enviroment == "development" ? '/node_modules/jquery/dist/jquery.js' : '/node_modules/jquery/dist/jquery.min.js'},
+          { script: req.device.enviroment == "development" ? '/assets/js/semantic.js' : '/assets/js/semantic.min.js'},
+          // STYLES
+          //{ style: req.device.enviroment == "development" ? '/assets/css/semantic.css' : '/assets/css/semantic.min.css' },
+      ],
+  }
+
+  // DEV/PRODUCTION SPECIFIC INSTRUCTIONS
+  if(req.device.enviroment == "development"){
+    VUE_DEV=true;
+    req.meta.head.push({ script: '//localhost:35729/livereload.js' })
+  }
+  else{
+    VUE_DEV=false;
+  }
+  //------------------
+
 	next();
 })
+//------------------------------------
 
-
-// routing
-router.get('/api/v1/', api.endpoint);
-router.get('/*', site.home);
-
-
-// initiate
+//------------------------------------
+// ROUTES
+router.get('/users/:userName', site.user);
+router.get('/', site.home);
 app.use('/',  router);
+//------------------------------------
 
-// 404 and redirect
-app.use(function(req, res, next) {
-  res.redirect("/")
-});
-
-// DEV ERROR
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// PRODUCTION ERROR
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-// export app
-module.exports = app;
+//------------------------------------
+// PORT
+var port = process.env.PORT || port;
+app.listen(port);
+//------------------------------------

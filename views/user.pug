@@ -1,20 +1,22 @@
-//output: ../_render/views/index.vue
+//output: ../_render/views/user.vue
 //-===================================
 template
-  doctype html
-  html(lang='en')
-    head
-    body
-      {{{app}}}
-      {{{script}}}
+  div
+    h1 {{ title }}
+    p {{user.name}}
+
+
 //-===================================
 
 
 //-===================================
 script.
   export default {
-      name: "Something",
-      props: ['message']
+      data: function() {
+          return {
+            title: "My name is: "
+          }
+      }
   }
 //-===================================
 

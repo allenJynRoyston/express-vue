@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
 	// required
   require('load-grunt-tasks')(grunt);
-	require('time-grunt')(grunt);
+
 
   // grunt plugins
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         logConcurrentOutput: true
       },
   		watch: [
-        'shell:start', 'watch:reloads', 'nodemon:dev'
+        'watch:reloads', 'nodemon:dev'
        ]
   	},
     //-------------
@@ -32,8 +32,8 @@ module.exports = function(grunt) {
       //------------------
 		  reloads: {
 		    files: [
-          'views/*.*',
-          'components/**/*.*',
+          'app.js',
+          '_render/**/*'
         ],
 		    options: {
 					livereload: 35729,	// https://github.com/gruntjs/grunt-contrib-watch#optionslivereload
