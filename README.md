@@ -1,8 +1,10 @@
 # Vue + Express Boilerplate
 
 ## Setup Instructions
-1.) Clone or download this repo
-2.) cd /foldername
-3.) npm install
-4.) grunt 
-5.) open browser at localhost:3000
+<ul>
+<li>1.) Clone or download this repo</li>
+<li>2.) cd /foldername</li>
+<li>3.) npm install</li>
+<li>4.) grunt </li>
+<li>5.) open browser at localhost:3000</li>
+<ul>
