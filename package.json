@@ -1,11 +1,8 @@
 {
-  "name": "express-vue-super-simple",
-  "version": "0.1.0",
-  "description": "Express/Vue/SemanticUI",
+  "name": "express-vue-ssr-boilerplate",
+  "version": "1.0.0",
+  "description": "Express/Vue/SemanticUI/SSR",
   "main": "app.js",
-  "directories": {
-    "example": "examples"
-  },
   "scripts": {
     "start": "node app.js"
   },
