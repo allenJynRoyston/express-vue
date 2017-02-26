@@ -1,7 +1,10 @@
-# express-vue-super-simple
+# Express + Vue.js boilerplate (with Pug support)
 
-To Use this just run
-`npm install`
-
-Then to run it
-`npm start`
+## Setup Instructions
+<ul>
+<li>Clone or download this repo</li>
+<li>cd /foldername</li>
+<li>npm install</li>
+<li>grunt OR gulp </li>
+<li>open browser at localhost:3000</li>
+<ul>
