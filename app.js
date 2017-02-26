@@ -9,7 +9,7 @@ var path = require('path'),
     port = 3000;
     // include these to insure that they don't conflict in your vue components
     global.$ = function(){return{}};
-    global.window = function(){return{}};    
+    global.window = function(){return{}};
 //------------------------------------
 
 //------------------------------------
@@ -59,7 +59,7 @@ router.use(function(req, res, next) {
           // SCRIPTS
           { script: req.device.enviroment == "development" ? '/node_modules/vue/dist/vue.js' : '/node_modules/vue/dist/vue.min.js'},
           { script: req.device.enviroment == "development" ? '/node_modules/jquery/dist/jquery.js' : '/node_modules/jquery/dist/jquery.min.js'},
-          { script: req.device.enviroment == "development" ? '/assets/js/semantic.js' : '/assets/js/semantic.min.js'},
+          //{ script: req.device.enviroment == "development" ? '/assets/js/semantic.js' : '/assets/js/semantic.min.js'},
           // STYLES
           //{ style: req.device.enviroment == "development" ? '/assets/css/semantic.css' : '/assets/css/semantic.min.css' },
       ],
