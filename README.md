@@ -1,10 +1,7 @@
-# Vue + Express Boilerplate
+# express-vue-super-simple
 
-## Setup Instructions
-<ul>
-<li>Clone or download this repo</li>
-<li>cd /foldername</li>
-<li>npm install</li>
-<li>grunt </li>
-<li>open browser at localhost:3000</li>
-<ul>
+To Use this just run
+`npm install`
+
+Then to run it
+`npm start`

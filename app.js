@@ -7,11 +7,9 @@ var path = require('path'),
     expressVue = require('express-vue'),  // this plugin is in active development - make sure to check up on it later
     app = express(),
     port = 3000;
-
     // include these to insure that they don't conflict in your vue components
     global.$ = function(){return{}};
-    global.window = function(){return{}};
-    global.document = function(){return{}};
+    global.window = function(){return{}};    
 //------------------------------------
 
 //------------------------------------
@@ -26,8 +24,7 @@ app.engine('vue', expressVue);
 app.set('view engine', 'vue');
 app.set('views', path.join(__dirname, '/_render/views/'));
 app.set('vue', {
-    componentsDir: path.join(__dirname, '/_render/components/'),
-    defaultLayout: 'index'    //index file will always be rendered first
+    componentsDir: path.join(__dirname, '/_render/components/')
 });
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
 app.use('/assets',  express.static(__dirname + '/assets'));
@@ -71,7 +68,6 @@ router.use(function(req, res, next) {
   // DEV/PRODUCTION SPECIFIC INSTRUCTIONS
   if(req.device.enviroment == "development"){
     VUE_DEV=true;
-    req.meta.head.push({ script: '//localhost:35729/livereload.js' })
   }
   else{
     VUE_DEV=false;

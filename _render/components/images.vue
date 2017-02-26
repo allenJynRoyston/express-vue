@@ -1,16 +1,3 @@
-
-<greetings message="I am a message"></greetings>
-<template>
-  <div>
-    <h1>Images</h1>
-    <p>Morbi dui nam duis dolor ullamcorper ultrices, tempor dolor mollis lorem quam. Dui luctus sodales tempor erat phasellus, a adipiscing. Dictumst et est ac, elit maecenas morbi tempus itaque aenean dolor, aenean porta praesent pharetra magna ligula fames, velit tortor imperdiet integer wisi magnis adipiscing. Malesuada arcu sem amet, ante enim eros pretium mauris, metus diam eros pellentesque ornare suscipit praesent, amet rhoncus et dictum, rutrum mauris rutrum erat nibh vitae. Felis ipsum sollicitudin, nunc nec sodales, quam curabitur quisque, nibh donec quis tempus mattis accumsan wisi, ullamcorper tempus ultricies. In a vestibulum faucibus morbi, vitae tempor urna ipsum hac maecenas eu, sem consequat lacus curabitur elit. Et senectus aenean molestie tortor, leo amet metus vulputate lacinia officia quisque, sit id porta mollis, fringilla sodales orci ac velit, ultricies sapien est urna elementum pellentesque libero. Libero tempus.</p>
-  </div>
-</template>
-
-<script>
-  export default {
-      props: ['message']
-  }
-</script>
-
-<style lang="css">/* PENDING VUE-EXPRESS UPDATE */</style>
+<template><div><h1>Images</h1><p>Morbi dui nam duis dolor ullamcorper ultrices, tempor dolor mollis lorem quam. Dui luctus sodales tempor erat phasellus, a adipiscing. Dictumst et est ac, elit maecenas morbi tempus itaque aenean dolor, aenean porta praesent pharetra magna ligula fames, velit tortor imperdiet integer wisi magnis adipiscing. Malesuada arcu sem amet, ante enim eros pretium mauris, metus diam eros pellentesque ornare suscipit praesent, amet rhoncus et dictum, rutrum mauris rutrum erat nibh vitae. Felis ipsum sollicitudin, nunc nec sodales, quam curabitur quisque, nibh donec quis tempus mattis accumsan wisi, ullamcorper tempus ultricies. In a vestibulum faucibus morbi, vitae tempor urna ipsum hac maecenas eu, sem consequat lacus curabitur elit. Et senectus aenean molestie tortor, leo amet metus vulputate lacinia officia quisque, sit id porta mollis, fringilla sodales orci ac velit, ultricies sapien est urna elementum pellentesque libero. Libero tempus.</p></div></template><script>export default {
+    props: ['message']
+}</script><style lang="css">/* PENDING VUE-EXPRESS UPDATE */</style>
