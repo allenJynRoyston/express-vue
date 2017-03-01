@@ -20,6 +20,7 @@ var site = require('./routes/site'),
 
 //------------------------------------
 // SETUP
+app.use(compression())
 app.engine('vue', expressVue);
 app.set('view engine', 'vue');
 app.set('views', path.join(__dirname, '/_render/views/'));
@@ -28,7 +29,6 @@ app.set('vue', {
 });
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
 app.use('/assets',  express.static(__dirname + '/assets'));
-app.use(compression())
 //------------------------------------
 
 //------------------------------------
