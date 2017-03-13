@@ -10,6 +10,8 @@ var path = require('path'),
     // include these to insure that they don't conflict in your vue components
     global.$ = function(){return{}};
     global.window = function(){return{}};
+    global.scene = function(){return{}};
+    global.EventEmitter = function(){return{}};
 //------------------------------------
 
 //------------------------------------
@@ -20,15 +22,20 @@ var site = require('./routes/site'),
 
 //------------------------------------
 // SETUP
+app.use(compression())
 app.engine('vue', expressVue);
+app.set('view cache', true);
 app.set('view engine', 'vue');
 app.set('views', path.join(__dirname, '/_render/views/'));
 app.set('vue', {
-    componentsDir: path.join(__dirname, '/_render/components/')
+    componentsDir: path.join(__dirname, '/_render/components/'),
+    defaultLayout: 'index'
 });
-app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-app.use('/assets',  express.static(__dirname + '/assets'));
-app.use(compression())
+
+var oneDay = 86400000;
+app.use('/node_modules',  express.static(__dirname + '/node_modules', { maxAge : oneDay*1 }) );
+app.use('/assets',  express.static(__dirname + '/assets', { maxAge : oneDay*1 }) );
+app.use('/dist',  express.static(__dirname + '/dist', { maxAge : oneDay*1 }) );
 //------------------------------------
 
 //------------------------------------
@@ -52,7 +59,7 @@ router.use(function(req, res, next) {
   /* INCLUDE SCRIPTS/STYLES HERE */
   req.meta = {
       title: 'Vue/Express/Sematic Boilerplate',
-      head: [
+      meta: [
           // META TAGS
           { charset: 'UTF-8' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
@@ -63,6 +70,15 @@ router.use(function(req, res, next) {
           // STYLES
           //{ style: req.device.enviroment == "development" ? '/assets/css/semantic.css' : '/assets/css/semantic.min.css' },
       ],
+      structuredData: {
+          "@context": "http://schema.org",
+          "@type": "Person",
+          "givenName": "Allen",
+          "familyName": "Royston",
+          //"url": "https://allen-royston-2017.herokuapp.com/",
+          "email": "allen.acr@gmail.com",
+          "jobTitle": "Web Developer",
+      }
   }
 
   // DEV/PRODUCTION SPECIFIC INSTRUCTIONS
