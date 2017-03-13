@@ -31,11 +31,16 @@ app.set('vue', {
     componentsDir: path.join(__dirname, '/_render/components/'),
     defaultLayout: 'index'
 });
+<<<<<<< HEAD
 
 var oneDay = 86400000;
 app.use('/node_modules',  express.static(__dirname + '/node_modules', { maxAge : oneDay*1 }) );
 app.use('/assets',  express.static(__dirname + '/assets', { maxAge : oneDay*1 }) );
 app.use('/dist',  express.static(__dirname + '/dist', { maxAge : oneDay*1 }) );
+=======
+app.use('/node_modules',  express.static(__dirname + '/node_modules'));
+app.use('/assets',  express.static(__dirname + '/assets'));
+>>>>>>> 31854f6075f2ed1528efc0698fb68679c8514f6f
 //------------------------------------
 
 //------------------------------------
