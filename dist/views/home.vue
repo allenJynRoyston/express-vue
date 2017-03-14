@@ -1,4 +1,4 @@
-<template><div><h1>{{title}}</h1><p>Welcome to pug demo! {{title}} demo. Click a link:</p><ul><li v-for="i in links"><a v-bind:href='i.link'>{{ i.title }}</a></li></ul><home v-if="hash == 'home' || hash == ''"></home><about v-if="hash == 'about'"></about><images v-if="hash == 'images'"></images><small></small><hr/><small>isMobile: {{device.isMobile}}</small></div></template><script>export default {
+<template><div><h1>{{title}}</h1><p>Welcome to the Vue/Express demo!</p><ul><li v-for="i in links"><a v-bind:href='i.link'>{{ i.title }}</a></li></ul><home v-if="hash == 'home' || hash == ''"></home><about v-if="hash == 'about'"></about><images v-if="hash == 'images'"></images><small></small><hr/><small>isMobile: {{device.isMobile}}</small></div></template><script>export default {
   data: function() {
     return {
       title: "Vue Component",

@@ -26,9 +26,9 @@ app.use(compression())
 app.engine('vue', expressVue);
 app.set('view cache', true);
 app.set('view engine', 'vue');
-app.set('views', path.join(__dirname, '/_render/views/'));
+app.set('views', path.join(__dirname, '/dist/views/'));
 app.set('vue', {
-    componentsDir: path.join(__dirname, '/_render/components/'),
+    componentsDir: path.join(__dirname, '/dist/components/'),
     defaultLayout: 'index'
 });
 

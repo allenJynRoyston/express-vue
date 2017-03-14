@@ -5,7 +5,7 @@ exports.home = function(req, res){
 			device: req.device
     },
     vue: {
-				meta: req.meta,
+				head: req.meta,
 				// include component names
         components: [
 					'home', 'about', 'images'

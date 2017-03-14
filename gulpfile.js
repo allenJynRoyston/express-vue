@@ -14,9 +14,9 @@ var browserSync = require('browser-sync').create();
 gulp.task('html:components', function(){
   return gulp.src(['pug/components/*.pug'])
     .pipe(pug())
-    .pipe(gulp.dest('_render/components'))
+    .pipe(gulp.dest('dist/components'))
     .pipe(ext_replace('.vue'))
-    .pipe(gulp.dest('./_render/components/'))
+    .pipe(gulp.dest('./dist/components/'))
 });
 //--------------------------------------
 
@@ -24,15 +24,15 @@ gulp.task('html:components', function(){
 gulp.task('html:views', function(){
   return gulp.src(['pug/views/*.pug'])
     .pipe(pug())
-    .pipe(gulp.dest('_render/views'))
+    .pipe(gulp.dest('dist/views'))
     .pipe(ext_replace('.vue'))
-    .pipe(gulp.dest('./_render/views/'))
+    .pipe(gulp.dest('./dist/views/'))
 });
 //--------------------------------------
 
 //--------------------------------------
 gulp.task('clearHtml', function () {
-  gulp.src('./_render/**/*.html')
+  gulp.src('./dist/**/*.html')
     .pipe(removeFiles());
 });
 //--------------------------------------
