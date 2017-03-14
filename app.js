@@ -66,9 +66,10 @@ router.use(function(req, res, next) {
           // SCRIPTS
           { script: req.device.enviroment == "development" ? '/node_modules/vue/dist/vue.js' : '/node_modules/vue/dist/vue.min.js'},
           { script: req.device.enviroment == "development" ? '/node_modules/jquery/dist/jquery.js' : '/node_modules/jquery/dist/jquery.min.js'},
-          //{ script: req.device.enviroment == "development" ? '/assets/js/semantic.js' : '/assets/js/semantic.min.js'},
+          { script: req.device.enviroment == "development" ? '/assets/js/semantic.js' : '/assets/js/semantic.min.js'},
+          { script:'/assets/js/eventEmitter.js'},
           // STYLES
-          //{ style: req.device.enviroment == "development" ? '/assets/css/semantic.css' : '/assets/css/semantic.min.css' },
+          { style: req.device.enviroment == "development" ? '/assets/css/semantic.css' : '/assets/css/semantic.min.css' },
       ],
       structuredData: {
           "@context": "http://schema.org",
