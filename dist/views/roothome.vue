@@ -1,4 +1,13 @@
-<template><div><h1>{{title}}</h1><p>Welcome to the Vue/Express demo!</p><ul><li v-for="i in links"><a v-bind:href='i.link'>{{ i.title }}</a></li></ul><home v-if="hash == 'home' || hash == ''"></home><about v-if="hash == 'about'"></about><images v-if="hash == 'images'"></images><small></small><hr/><small>isMobile: {{device.isMobile}}</small></div></template><script>export default {
+<template language="pug"><div><h1>{{title}}</h1><!--p Welcome to the Vue/Express demo!
+ul
+  li(v-for="i in links")
+     <a v-bind:href='i.link'>{{ i.title }}</a>
+home(v-if="hash == 'home' || hash == ''")
+about(v-if="hash == 'about'")
+images(v-if="hash == 'images'")
+small
+hr
+small isMobile: {{device.isMobile}}--></div></template><script>export default {
   data: function() {
     return {
       title: "Vue Component",

@@ -1,28 +1,33 @@
 //------------------------------------
 // EXPRESS/NPM PACKETS
 var path = require('path'),
+    fs = require('fs'),
+    favicon = require('serve-favicon'),
     request = require('request'),
     compression = require('compression'),
     express = require('express'),
     expressVue = require('express-vue'),  // this plugin is in active development - make sure to check up on it later
     app = express(),
-    port = 3000;
+    port = 3000,
+    router = express.Router();
+
     // include these to insure that they don't conflict in your vue components
     global.$ = function(){return{}};
     global.window = function(){return{}};
     global.scene = function(){return{}};
     global.EventEmitter = function(){return{}};
-//------------------------------------
 
-//------------------------------------
-// ROUTES
-var site = require('./routes/site'),
-    router = express.Router();
+var vueComponents = [],
+    pageComponents = [],
+    componentsFolder = './pug/components';
+    viewFolder = './pug/views';
+    pagesFolder = './pug/pages'
 //------------------------------------
 
 //------------------------------------
 // SETUP
 app.use(compression())
+app.use(favicon(path.join(__dirname, '/', 'favicon.ico')))
 app.engine('vue', expressVue);
 app.set('view cache', true);
 app.set('view engine', 'vue');
@@ -34,7 +39,6 @@ app.set('vue', {
 
 var oneDay = 86400000;
 app.use('/node_modules',  express.static(__dirname + '/node_modules', { maxAge : oneDay*1 }) );
-app.use('/assets',  express.static(__dirname + '/assets', { maxAge : oneDay*1 }) );
 app.use('/dist',  express.static(__dirname + '/dist', { maxAge : oneDay*1 }) );
 //------------------------------------
 
@@ -62,23 +66,32 @@ router.use(function(req, res, next) {
       meta: [
           // META TAGS
           { charset: 'UTF-8' },
+          { name: 'title', content: 'Title'},
           { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+          { name: 'keywords', content: 'Keywords'},
+          { name: 'description', content: 'Description'},
+          { name: 'og:type', content: 'article'},
+          { name: 'og:url', content: 'www.url.com'},
+          { name: 'og:title', content: 'Title'},
+          { name: 'og:image', content: '/assets/media/images/image.jpg'},
+
           // SCRIPTS
           { script: req.device.enviroment == "development" ? '/node_modules/vue/dist/vue.js' : '/node_modules/vue/dist/vue.min.js'},
           { script: req.device.enviroment == "development" ? '/node_modules/jquery/dist/jquery.js' : '/node_modules/jquery/dist/jquery.min.js'},
-          { script: req.device.enviroment == "development" ? '/assets/js/semantic.js' : '/assets/js/semantic.min.js'},
-          { script:'/assets/js/eventEmitter.js'},
+          { script: req.device.enviroment == "development" ? '/dist/assets/js/semantic.js' : '/dist/assets/js/semantic.min.js'},
+          { script:'/dist/assets/js/eventEmitter.js'},
+
           // STYLES
-          { style: req.device.enviroment == "development" ? '/assets/css/semantic.css' : '/assets/css/semantic.min.css' },
+          { style: req.device.enviroment == "development" ? '/dist/assets/css/semantic/semantic.css' : '/dist/assets/css/semantic/semantic.min.css' },
       ],
       structuredData: {
           "@context": "http://schema.org",
           "@type": "Person",
-          "givenName": "Allen",
-          "familyName": "Royston",
+          "givenName": "<first_name>",
+          "familyName": "<last_name>",
           //"url": "https://allen-royston-2017.herokuapp.com/",
-          "email": "allen.acr@gmail.com",
-          "jobTitle": "Web Developer",
+          "email": "<email>",
+          "jobTitle": "<jobTitle>",
       }
   }
 
@@ -91,16 +104,79 @@ router.use(function(req, res, next) {
   }
   //------------------
 
-	next();
+  //------------------
+  // automatically grab all components
+  vueComponents = [],
+  pageComponents = [];
+
+  fs.readdir(componentsFolder, (err, files) => {
+    files.forEach(file => {
+      vueComponents.push(file.replace(/\.[^/.]+$/, ""))
+    });
+
+    fs.readdir(pagesFolder, (err, files) => {
+      files.forEach(file => {
+        pageComponents.push({name: file.replace(/\.[^/.]+$/, "")})
+        vueComponents.push(file.replace(/\.[^/.]+$/, ""))
+      });
+      next();
+    })
+  })
+  //------------------
+
 })
 //------------------------------------
 
+
+
 //------------------------------------
 // ROUTES
-router.get('/users/:userName', site.user);
-router.get('/', site.home);
+router.get('/users/:userName', function(req, res){
+	res.render('rootuser', {
+    data: {
+      user: {
+        pages: pageComponents,
+        device: req.device,
+        name: req.params.userName
+      }
+    },
+    vue: {
+				head: req.meta,
+        /* include component names manually
+        /* they must match the names of the components in dist/components
+        components: [
+					'home', 'about', 'images'
+				]
+        */
+        /* include all components automatically */
+        components: vueComponents
+    }
+  });
+});
+
+router.get('/', function(req, res){
+	res.render('rootdefault', {
+    data: {
+      pages: pageComponents,
+			device: req.device
+    },
+    vue: {
+				head: req.meta,
+				/* include component names manually
+        components: [
+					'home', 'about', 'images'
+				]
+        */
+        /* include all components automatically */
+        components: vueComponents
+    }
+  });
+});
+
 app.use('/',  router);
 //------------------------------------
+
+
 
 //------------------------------------
 // PORT

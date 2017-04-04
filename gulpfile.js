@@ -21,6 +21,16 @@ gulp.task('html:components', function(){
 //--------------------------------------
 
 //--------------------------------------
+gulp.task('html:pages', function(){
+  return gulp.src(['pug/pages/*.pug'])
+    .pipe(pug())
+    .pipe(gulp.dest('dist/components'))
+    .pipe(ext_replace('.vue'))
+    .pipe(gulp.dest('./dist/components/'))
+});
+//--------------------------------------
+
+//--------------------------------------
 gulp.task('html:views', function(){
   return gulp.src(['pug/views/*.pug'])
     .pipe(pug())
@@ -67,7 +77,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
 		proxy: "http://localhost:3000",
         files: ["app.js", "bsync.js"],
         port: 3030,
-        reloadDelay: 100,
+        reloadDelay: 1500,
 	})
 
   // IF ANY OF THESE FILES HAVE BEEN CHANGED, COMPILE THEN START TRIGGER-SYNC, WHICH KICKS OFF BROWSERSYNC
@@ -76,6 +86,10 @@ gulp.task('browser-sync', ['nodemon'], function() {
   watch('pug/components/*', {
     emitOnGlob: false
   }, queue.getHandler('html:components', 'trigger-sync', 'clearHtml'));
+
+  watch('pug/pages/*', {
+    emitOnGlob: false
+  }, queue.getHandler('html:pages', 'trigger-sync', 'clearHtml'));
 
   watch('pug/views/*', {
     emitOnGlob: false

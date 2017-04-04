@@ -1,26 +1,19 @@
 //-===================================
 template
-  div
-    h1 {{ title }}
-    p {{user.name}}
-
-
+  doctype html
+  html(lang='en')
+    head
+      meta(charset='UTF-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    body
+    | {{{app}}}
+    | {{{script}}}
 //-===================================
 
-
 //-===================================
-script.
-  export default {
-      data: function() {
-          return {
-            title: "My name is: "
-          }
-      }
-  }
+script
 //-===================================
 
-
 //-===================================
-style(lang='css').
-  /* PENDING VUE-EXPRESS UPDATE */
+style
 //-===================================
