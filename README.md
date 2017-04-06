@@ -7,7 +7,7 @@ Build a website or webapp quickly with the fantastic Vue.js and Express with Gul
   - SemanticUI (for desktop)
   - Framework7 (for mobile)
   
- Despite the additional files, the complete gzip minized file is less than 400kb and loads very quickly.  
+Despite the additional files, the complete gzip minized file is less than 400kb and loads very quickly.  There is also support for differenitating between mobile/desktop views.
 
 ### Installation
 ~~~~
