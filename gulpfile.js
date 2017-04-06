@@ -24,7 +24,7 @@ gulp.task('concat:dist', function() {
       'node_modules/three-js/three.js',
 
       // custom scripts
-      'dist/assets/js/custom/*.js',
+      'dist/assets/js/custom/misc/*.js',
      ])
     .pipe(concat('all.js'))
     .pipe(concat.header('// file: <%= file.path %>\n'))
@@ -48,7 +48,7 @@ gulp.task('compress:js', function (cb) {
 //--------------------------------------
 gulp.task('concat:css', function () {
   return gulp.src([
-      'dist/assets/css/custom/*.css',
+      'dist/assets/css/custom/misc/*.css',
     ])
     .pipe(concatCss("all.css"))
     .pipe(gulp.dest('dist/assets/css/unminified/'));

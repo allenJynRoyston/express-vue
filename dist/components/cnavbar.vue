@@ -3,11 +3,6 @@
     return {
       hash: null,
       server_pages: {},
-      links:[
-        {title: "Home", link: "home"},
-        {title: "About", link: "about"},
-        {title: "Images", link: "images"}
-      ],
     }
   },
   created:function(){

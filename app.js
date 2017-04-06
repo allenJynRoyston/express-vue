@@ -57,42 +57,70 @@ router.use(function(req, res, next) {
 		isAndroid: /Android/i.test(ua) ? true : false,
 		userAgent: ua
 	};
-  //-------------------
-
-  //------------------
-  /* INCLUDE SCRIPTS/STYLES HERE */
   req.meta = {
       title: 'Vue/Express/Sematic Boilerplate',
-      meta: [
-          // META TAGS
-          { charset: 'UTF-8' },
-          { name: 'title', content: 'Title'},
-          { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
-          { name: 'keywords', content: 'Keywords'},
-          { name: 'description', content: 'Description'},
-          { name: 'og:type', content: 'article'},
-          { name: 'og:url', content: 'www.url.com'},
-          { name: 'og:title', content: 'Title'},
-          { name: 'og:image', content: '/assets/media/images/image.jpg'},
-
-          // SCRIPTS
-          { script: req.device.enviroment == "development" ? '/dist/assets/js/unminified/all.js' : '/dist/assets/js/minified/all.js'},
-
-          // STYLES
-          { style: req.device.enviroment == "development" ? '/dist/assets/css/unminified/all.css' : '/dist/assets/css/minified/all.css' },
-          { style: req.device.enviroment == "development" ? '/dist/assets/css/custom/semantic/semantic.css' : '/dist/assets/css/custom/semantic/semantic.min.css' },
-          { style: 'https://fonts.googleapis.com/css?family=Amatic+SC|Ubuntu+Condensed' }
-
-      ],
+      meta: [],
       structuredData: {
           "@context": "http://schema.org",
           "@type": "Person",
           "givenName": "<first_name>",
           "familyName": "<last_name>",
-          //"url": "https://allen-royston-2017.herokuapp.com/",
+          "url": "http://www.url.com",
           "email": "<email>",
           "jobTitle": "<jobTitle>",
       }
+  }
+  //-------------------
+
+  //------------------
+  /* INCLUDE SCRIPTS/STYLES HERE */
+  // META TAGS
+  var sharedMeta = [
+    { charset: 'UTF-8' },
+    { name: 'title', content: 'Title'},
+    { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+    { name: 'keywords', content: 'Keywords'},
+    { name: 'description', content: 'Description'},
+    { name: 'og:type', content: 'article'},
+    { name: 'og:url', content: 'www.url.com'},
+    { name: 'og:title', content: 'Title'},
+    { name: 'og:image', content: '/assets/media/images/image.jpg'}
+  ]
+  for(var i = 0; i < sharedMeta.length; i++){
+    req.meta.meta.push(sharedMeta[i])
+  }
+
+  // SHARED FILES
+  var shared_files = [
+    { script: req.device.enviroment == "development" ? '/dist/assets/js/unminified/all.js' : '/dist/assets/js/minified/all.js'},
+    { style: req.device.enviroment == "development" ? '/dist/assets/css/unminified/all.css' : '/dist/assets/css/minified/all.css' },
+    { style: 'https://fonts.googleapis.com/css?family=Amatic+SC|Ubuntu+Condensed' }
+  ]
+  for(var i = 0; i < shared_files.length; i++){
+    req.meta.meta.push(shared_files[i])
+  }
+  
+  //  DESKTOP SPECIFIC FILES
+  var desktop_files = [
+    { style: '/dist/assets/js/custom/semantic/semantic.min.js' },
+    { style: '/dist/assets/css/custom/semantic/semantic.min.css' },
+  ]
+  if(!req.device.isMobile){
+    for(var i = 0; i < desktop_files.length; i++){
+      req.meta.meta.push(desktop_files[i])
+    }
+  }
+
+  //  MOBILE SPECIFIC FILES
+  var mobile_files = [
+    { style: '/dist/assets/js/custom/framework7/framework7.min.js' },
+    { style: '/dist/assets/css/custom/framework7/framework7.ios.css' },
+    { style: '/dist/assets/css/custom/framework7/framework7.ios.colors.css' },
+  ]
+  if(req.device.isMobile){
+    for(var i = 0; i < mobile_files.length; i++){
+      req.meta.meta.push(mobile_files[i])
+    }
   }
 
   // DEV/PRODUCTION SPECIFIC INSTRUCTIONS

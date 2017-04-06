@@ -1,4 +1,4 @@
-<template language="pug"><div><h1>{{title}}</h1><cnavbar></cnavbar><home v-if="hash == 'home' || hash == ''"></home><about v-if="hash == 'about'"></about><images v-if="hash == 'images'"></images><small></small><hr/><small>isMobile: {{server_data.isMobile}}</small><!-- FROM RENDER--><div style="height: 0; opacity: 0; position: absolute; z-index: -100;"><div id="___serverdata">{{device}}</div><div id="___vuepages">{{pages}}</div></div></div></template><script>export default {
+<template language="pug"><div><h1>{{title}}</h1><cnavbar></cnavbar><home v-if="hash == 'home' || hash == ''"></home><about v-if="hash == 'about'"></about><images v-if="hash == 'images'"></images><contact v-if="hash == 'contact'"></contact><!-- FROM RENDER--><div style="height: 0; opacity: 0; position: absolute; z-index: -100;"><div id="___serverdata">{{device}}</div><div id="___vuepages">{{pages}}</div></div></div></template><script>export default {
   data: function() {
     return {
       title: "Vue/Express/Semantic UI Bootstrap",
