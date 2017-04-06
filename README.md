@@ -17,7 +17,8 @@ $ npm install
 $ gulp
 ~~~~
 
-At this point, Gulp will start a server at http://localhost:3030.  Any file changes will also update your browser automatically via BrowserSync.
+At this point, Gulp will start a server at http://localhost:3030.
+BrowserSync is enabled and will automatically refresh your browser when file changes are made.
 
 ### Version
 0.9.0
