@@ -11,7 +11,7 @@ Build a website or webapp quickly with the fantastic Vue.js and Express with Gul
 
 ### Installation
 ~~~~
-$ git clone:https://github.com/allenRoyston/express-vue.git
+$ git clone https://github.com/allenRoyston/express-vue.git
 $ cd express-vue
 $ npm install
 $ gulp
