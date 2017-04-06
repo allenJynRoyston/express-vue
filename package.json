@@ -16,6 +16,7 @@
     "jquery": "3.1.1",
     "request": "^2.79.0",
     "serve-favicon": "^2.4.2",
+    "three-js": "^79.0.0",
     "vueify": "^9.4.0"
   },
   "devDependencies": {
@@ -27,6 +28,9 @@
     "grunt-nodemon": "^0.4.2",
     "grunt-shell": "^2.1.0",
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-concat-util": "^0.5.5",
     "gulp-ext-replace": "^0.3.0",
     "gulp-inject-string": "^1.1.0",
     "gulp-livereload": "^3.8.1",
@@ -34,10 +38,13 @@
     "gulp-pug": "^3.2.0",
     "gulp-remove-files": "0.0.3",
     "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.5.1",
+    "gulp-uglify": "^2.1.2",
     "gulp-watch": "^4.3.11",
     "gulp-watch-sequence": "^1.0.0",
     "load-grunt-tasks": "^3.5.2",
     "pug": "^2.0.0-beta11",
+    "pump": "^1.0.2",
     "run-sequence": "^1.2.2"
   }
 }

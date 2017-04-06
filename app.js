@@ -76,13 +76,13 @@ router.use(function(req, res, next) {
           { name: 'og:image', content: '/assets/media/images/image.jpg'},
 
           // SCRIPTS
-          { script: req.device.enviroment == "development" ? '/node_modules/vue/dist/vue.js' : '/node_modules/vue/dist/vue.min.js'},
-          { script: req.device.enviroment == "development" ? '/node_modules/jquery/dist/jquery.js' : '/node_modules/jquery/dist/jquery.min.js'},
-          { script: req.device.enviroment == "development" ? '/dist/assets/js/semantic.js' : '/dist/assets/js/semantic.min.js'},
-          { script:'/dist/assets/js/eventEmitter.js'},
+          { script: req.device.enviroment == "development" ? '/dist/assets/js/unminified/all.js' : '/dist/assets/js/minified/all.js'},
 
           // STYLES
-          { style: req.device.enviroment == "development" ? '/dist/assets/css/semantic/semantic.css' : '/dist/assets/css/semantic/semantic.min.css' },
+          { style: req.device.enviroment == "development" ? '/dist/assets/css/unminified/all.css' : '/dist/assets/css/minified/all.css' },
+          { style: req.device.enviroment == "development" ? '/dist/assets/css/custom/semantic/semantic.css' : '/dist/assets/css/custom/semantic/semantic.min.css' },
+          { style: 'https://fonts.googleapis.com/css?family=Amatic+SC|Ubuntu+Condensed' }
+
       ],
       structuredData: {
           "@context": "http://schema.org",
